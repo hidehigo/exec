@@ -1,5 +1,6 @@
 class HelloWorld
   Version = "1.0"
+  attr_accessor :name
 
   def initialize(myname="Ruby")
     @name = myname
@@ -7,14 +8,6 @@ class HelloWorld
 
   def hello
     print "Hello, world. I am ", @name, ".\n"
-  end
-
-  def name
-    return @name
-  end
-
-  def name=(value)
-    @name = value
   end
 
 end
