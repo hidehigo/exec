@@ -7,9 +7,12 @@ class HelloWorld
   end
 
   def hello
-    print "Hello, world. I am ", @name, ".\n"
+    print "Hello, world. I am ", self.name, ".\n"
   end
 
+  def oreore
+    self.name = "Ruby"
+  end
 end
 
 bob = HelloWorld.new("Bob")
