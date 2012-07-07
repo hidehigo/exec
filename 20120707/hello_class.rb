@@ -13,6 +13,10 @@ class HelloWorld
   def oreore
     self.name = "Ruby"
   end
+
+  def HelloWorld.hello(name)
+    print name, " said hello.\n"
+  end
 end
 
 bob = HelloWorld.new("Bob")
@@ -27,3 +31,7 @@ p bob.name
 bob.name = "hide"
 p bob.name
 bob.hello
+bob.oreore
+bob.hello
+
+HelloWorld.hello("John")
