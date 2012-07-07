@@ -14,8 +14,10 @@ class HelloWorld
     self.name = "Ruby"
   end
 
-  def self.hello(name)
-    print name, " said hello.\n"
+  class << self
+    def hello(name)
+      print name, " said hello.\n"
+    end
   end
 end
 
