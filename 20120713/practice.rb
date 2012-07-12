@@ -20,4 +20,7 @@ sum = 0
 1.upto(1000){ |i| sum+=i if((i%3).zero? || (i%5).zero?) }
 p sum
 
-
+#--- sort array
+a = [2,5,1,4,3]
+a.sort!
+p a
