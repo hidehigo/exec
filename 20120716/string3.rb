@@ -19,3 +19,4 @@ hello = hello + world
 p hello
 p ref_hello
 # ↑新しいobjで置き換えてるので、効率は悪い
+
