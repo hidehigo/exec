@@ -70,7 +70,9 @@ a = Array.new
 result = Array.new
 10.times do |i|
   #result << a.slice(10*i..(10*(i+1)-1))
-  result << a[ 10*i .. (10*(i+1)-1) ]
+  #result << a[ 10*i .. (10*(i+1)-1) ]
+  #--(6)'
+  result << a[ 10*i, 10]
 end
 p result
 
