@@ -40,7 +40,10 @@ p a3
 #  a.delete_at(i) if (elem % 3 != 0)
 #p a
 #end
-a.delete_if{|elem| elem % 3 != 0}
+
+#a.delete_if{|elem| elem % 3 != 0}
+#--(3)'
+a.reject!{|elem| elem % 3 != 0}
 p a
 
 #--(4)
