@@ -61,6 +61,8 @@ p a
 sum = 0
 a.each{|item| sum += item}
 p sum 
+#--(5)'
+p a.inject(0){|memo, i| memo += i}
 
 #--(6)
 a = Array.new
