@@ -5,4 +5,5 @@ p column
 
 column2 = str.unpack("a5a5a5a5*")
 p column2
-
+column3 = str.unpack("a5a5a5a5")
+p column3
