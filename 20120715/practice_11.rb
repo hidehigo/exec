@@ -10,6 +10,10 @@ b = Array.new
 (1..100).each{|elem| b << elem}
 #p b
 
+#--(1)''
+c = (1..100).to_a
+p c
+
 #--(2)
 a2 = a.collect{|i| i *= 100 }
 p a2
