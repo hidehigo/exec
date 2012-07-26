@@ -9,4 +9,4 @@ loop do
   fibo << next_elem
 end
 p fibo
-p fibo.inject(0){|sum, elem| if (elem%2).zero? then sum + elem else sum end}
+p fibo.inject(0){|sum, elem| (elem%2).zero? ? sum + elem : sum}
