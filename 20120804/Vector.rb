@@ -41,7 +41,11 @@ class Vector
       raise ArgumentError, "out of range `#{idx}'"
     end
   end
-
+  include Enumerable
+  def each
+    yield(x)
+    yield(y)
+  end
 end
 
 vec0 = Vector.new(3, 6)
@@ -49,4 +53,7 @@ vec0 = Vector.new(3, 6)
 p vec0[0]
 p vec0[1] = 2
 p vec0[1]
-p vec0[2]
+#p vec0[2]
+vec0.each do |i|
+  p i
+end
