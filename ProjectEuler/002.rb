@@ -1,12 +1,4 @@
-first,second = [ 1, 2 ]
-max = 4.0e6.to_i
-fibo = Array.new
-fibo << first
-fibo << second
-loop do 
-  next_elem = fibo[-1] + fibo[-2]
-  break if next_elem > max
-  fibo << next_elem
-end
-p fibo
-p fibo.inject(0){|sum, elem| (elem%2).zero? ? sum + elem : sum}
+ary = [1,2]
+nex = ary[-1] + ary[-2]
+while nex <= 4000000; ary << nex; nex = ary[-1] + ary[-2]; end
+p ary.inject(0){|sum, i| (i%2).zero? ? sum + i : sum}
