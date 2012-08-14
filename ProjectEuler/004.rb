@@ -1,4 +1,4 @@
-
+start = Time.now
 def check_circuler(num)
   ary     = num.to_s.split(//)
   rev_ary = ary.reverse
@@ -20,4 +20,6 @@ catch(:exit) {
     }
   }
 }
+p cnt
 p max 
+p ((Time.now - start) * 1000).round
