@@ -6,9 +6,22 @@ now = 0
 idx = 1
 $loop_cnt = 0
 
+## 素数の候補を返す。30で割った余りが以下のものが素数の候補
+@pc = [1, 7, 11, 13, 17, 19, 23, 29]
+def next_prime_candidate(now)
+  divmod = now.divmod(30)
+  if ( idx = @pc.index(divmod[1]) + 1 ) == @pc.size 
+    then return 30 * ( divmod[0] + 1) + @pc[0]
+    else return 30 * divmod[0] + @pc[idx]
+  end
+  30 * divmod[0] + @pc[ @pc.index(divmod[1]) ]
+end
+## 素因数分解したhashを返す
 def factorial_hash(num)
   factors = Hash.new(0)
-  divisor = 2 # start from 2
+  # 小さい素数は予め与えておく。それ以上はnext_prime_candidate
+  divisor_pre = [ 2, 3, 5, 7 ]
+  divisor = divisor_pre.shift # start from 2
   divided = num.to_i
   while ( divisor <= divided ) do
     $loop_cnt += 1
@@ -17,7 +30,9 @@ def factorial_hash(num)
       divided = divided / divisor
       next
     end
-    divisor += 1
+    divisor = divisor_pre.empty? \
+            ? next_prime_candidate(divisor) \
+            : divisor_pre.shift
   end
   return factors
 end
