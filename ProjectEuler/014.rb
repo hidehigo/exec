@@ -3,20 +3,12 @@ start = Time.now
 
 def calc(n) 
   return @a[n] if ! @a[n].nil?
-  if n.even?
-    m = n/2
-    if ! @a[m].nil?
-      @a[n] = @a[m] + 1
-      return @a[n]
-    end
-    return @a[n] = calc(m) + 1
-  else
-    m = 3 * n + 1
-    if @a[m].nil?
-      @a[n] = calc(m) + 1
-    end
-    return @a[n] = calc(m) + 1
+  m = n.even? ? n/2 : 3 * n + 1
+  if ! @a[m].nil?
+    @a[n] = @a[m] + 1
+    return @a[n]
   end
+  return @a[n] = calc(m) + 1
 end
 
 (1..999_999).each{|n|
@@ -30,4 +22,7 @@ end
   end
 }
 
+puts "max_index: " + @a.size.to_s
+puts "max_value: " + @a.inject(0){|max,n| if n.nil? then max else max < n ? n : max end}.to_s
+puts "num of not nil: " + @a.select{|n| !n.nil? }.size.to_s
 #@a.each_index{|n| print "#{n}:#{@a[n]} "}
