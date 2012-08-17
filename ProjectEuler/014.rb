@@ -6,12 +6,19 @@ def calc(n)
   m = n.even? ? n/2 : 3 * n + 1
   if ! @a[m].nil?
     @a[n] = @a[m] + 1
-    return @a[n]
+  else
+    @a[n] = calc(m) + 1
   end
-  return @a[n] = calc(m) + 1
+  # nになる数も埋めておく
+  if n.even?
+    if @a[o = 2*n].nil? then @a[o] = @a[n] + 1 end
+  else
+    if ( o = (n - 1) % 3 ) == 0 && @a[0].nil? then @a[o] = @a[n] + 1 end
+  end
+  return @a[n]
 end
 
-(1..999_999).each{|n|
+(1..10000).each{|n|
   if @a[n] 
     #puts "exists:#{n}"
     next
@@ -23,6 +30,7 @@ end
 }
 
 puts "max_index: " + @a.size.to_s
-puts "max_value: " + @a.inject(0){|max,n| if n.nil? then max else max < n ? n : max end}.to_s
+puts "max_step: " + step = @a.inject(0){|max,n| if n.nil? then max else max < n ? n : max end}.to_s
 puts "num of not nil: " + @a.select{|n| !n.nil? }.size.to_s
+puts "max_value: " + @a.index(step.to_i).to_s
 #@a.each_index{|n| print "#{n}:#{@a[n]} "}
