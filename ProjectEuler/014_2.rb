@@ -69,7 +69,7 @@ def printn(n)
   m = n.even? ? n/2 : 3 * n + 1
   printn(m)
 end
-#print(max_index)
+#printn(max_index)
 
 # 以下は@a全体
 #puts "max_index: " + @a.inject(0){|max,(k,v)| max < k ? k : max }.to_s
