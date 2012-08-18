@@ -1,3 +1,4 @@
+# encoding: utf-8
 start = Time.now
 @a = Hash.new(0)
 @a[1] = 1
@@ -24,15 +25,22 @@ end
     #puts "exists:#{n}"
     next
   else
-    puts "calc:#{n}"
+    #puts "calc:#{n}"
     calc(n)
     #print "took " + ((Time.now - start) * 1000).round.to_s + "ms.\n"
   end
 }
 
-puts "max_index: " + @a.inject(0){|max,(k,v)| max < k ? k : max }.to_s
-puts "max_step: " + step = @a.inject(0){|max,(k,v)| max < v ? v : max }.to_s
-puts "num of not nil: " + @a.size.to_s
-puts "max_at: " + @a.index(step.to_i).to_s
+# 100万未満のstepの最大値
+max_index  = 0
+(1..1_000_000).each{|n| max_index = n if @a[n] > @a[max_index] }
+p max_index
+puts "max_index(under 1m): " + max_index.to_s + " 長さ: " + @a[max_index].to_s
+
+# 以下は@a全体
+#puts "max_index: " + @a.inject(0){|max,(k,v)| max < k ? k : max }.to_s
+#puts "max_step: " + step = @a.inject(0){|max,(k,v)| max < v ? v : max }.to_s
+#puts "num of not nil: " + @a.size.to_s
+#puts "max_at: " + @a.index(step.to_i).to_s
 print "took " + ((Time.now - start) * 1000).round.to_s + "ms.\n"
 #@a.each{|k,v| print "#{k}:#{v} "}
