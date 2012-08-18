@@ -19,12 +19,12 @@ def calc(n)
   return @a[n]
 end
 
-(1..10000).each{|n|
+(1..999_999).each{|n|
   if @a[n] != 0 
     #puts "exists:#{n}"
     next
   else
-    #puts "calc:#{n}"
+    puts "calc:#{n}"
     calc(n)
     #print "took " + ((Time.now - start) * 1000).round.to_s + "ms.\n"
   end
@@ -35,4 +35,4 @@ puts "max_step: " + step = @a.inject(0){|max,(k,v)| max < v ? v : max }.to_s
 puts "num of not nil: " + @a.size.to_s
 puts "max_at: " + @a.index(step.to_i).to_s
 print "took " + ((Time.now - start) * 1000).round.to_s + "ms.\n"
-#@a.each_index{|n| print "#{n}:#{@a[n]} "}
+#@a.each{|k,v| print "#{k}:#{v} "}
