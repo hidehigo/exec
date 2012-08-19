@@ -30,7 +30,7 @@ def count(s)
 end
 if $DEBUG
   (1 .. 1000).each do |n|
-    puts "n:" + n.to_s + ":" + translate(n) + count(translate(n)).to_s
+    puts "n:" + n.to_s + ":" + translate(n) + ":" + count(translate(n)).to_s
   end
 end
 p (1..1000).inject(0){|s,n| s += count(translate(n))}
