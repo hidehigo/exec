@@ -18,30 +18,71 @@ EOD
 @ary = data.split(/\n/).map{|l| l.split(/\s/).map{|n| n.to_i}}
 @selected = Array.new
 
-def choose()
-  @selected << @ary.shift[0]
-  # 左を選択するときの残りの選択しうる山
-  l_mnt = Marshal.load(Marshal.dump(@ary))
-  # 左を選択した時に選べなくなるもの
-  l_rest= Array.new
-  l_max = l_mnt.inject(0){|s,l| l_rest << l.pop; s += l.max }
-  l_rest_sum = l_rest.inject(0){|s,n| s += n }
-
-  # 右を選択するときの残りの選択しうる山
-  r_mnt = Marshal.load(Marshal.dump(@ary))
-  # 右を選択した時に選べなくなるもの
-  r_rest= Array.new
-  r_max = r_mnt.inject(0){|s,l| r_rest << l.shift; s += l.max }
-  r_rest_sum = r_rest.inject(0){|s,n| s += n }
-
-  if ! l_mnt.empty? && l_max == r_max then p l_mnt,r_mnt; exit end
-  #@ary = l_max - l_rest_sum > r_max - r_rest_sum ? l_mnt : r_mnt
-  @ary = l_max > r_max ? l_mnt : r_mnt
+# 再帰でたどる by honma
+def search_route(mnt, route, list, position = [0, 0])
+  if (mnt.length) -1 == (position[0]) # 最後の行
+    route << list
+    list = []
+    position = [0, 0]
+    return
+  end
+  (position[1]..(position[1])+1).each do |m|
+    search_route(mnt, route, list + [mnt[position[0] + 1][m]], [position[0] + 1, m])
+  end
+  return route
 end
 
-15.times.each do
-  choose()
-  #@ary.each{|l|p l}
+# @selected の最後から選択する(しなおす)
+def choose(ary_part)
+  row_start_from = (@selected.size) - 1
+  # pos は@selectedの最後の要素の位置
+  pos = ary_part[row_start_from].index(@selected[-1]) || 0
+
+  # mnt_relative は、@selectedの最後から選択しうる山
+  mnt_relative = Array.new
+  (row_start_from .. (ary_part.size)-1).each do |n|
+    mnt_relative << ary_part[n][pos .. pos + (n - row_start_from)]
+  end
+  puts "mnt_relative: " + mnt_relative.to_s if $DEBUG
+  route = Array.new
+  route = search_route(mnt_relative, route, [@selected[-1]])
+  puts "routes: " + route.to_s if $DEBUG
+  max_route = []
+  max = 0
+  route.each do |r|
+    s = r.inject(0){|s, n| s += n}
+    if s > max
+      max = s
+      max_route = r
+    end
+  end
+  puts "max_route: " + max_route.to_s if $DEBUG
+  # max_route を@selected に追加
+  # max_route の先頭は@selected の最後と同じなので1個shift
+  max_route.shift
+  max_route.each do |n|
+    @selected << n
+  end
+  puts "selected: " + @selected.to_s if $DEBUG
 end
+
+ary_part = Array.new
+@selected << 75
+ary_part << @ary[0]
+#ary_part << @ary[1]
+(1..14).each do |n|
+  ary_part << @ary[n]
+  choose(ary_part)
+  # ここで、行のmaxじゃない時に、どこまで戻るかのロジックが必要
+  # ここをブラッシュアップできれば何行でも解ける！
+  if @ary[n].max != @selected[-1] && diff = @ary[n].max - @selected[-1]
+    puts "diff: " + diff.to_s if $DEBUG
+    # とりあえず2行分消して再選択
+    @selected.pop
+    @selected.pop
+    choose(ary_part)
+  end
+end
+
 p @selected.inject(0){|s,n| s += n}
 p @selected
