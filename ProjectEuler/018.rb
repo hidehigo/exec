@@ -1,8 +1,9 @@
 # コンセプト
-# @selected が辿る数字の列
-# 1行足して、すでに選んだところの最後から、最後の行までの最大値を総当たりで求める
-# そのために、choose()は、複数行を追える形に書く
-# また、search_route()は、再帰で辿れるようにする
+# @selected が辿る数字のpositionの列
+# 1行ずつ足しながら
+# 大きい方の数字をたどる
+# 足した行の最大値から@selected に合流するところまで遡ったものとの差をみる
+# 最大値から遡って辿ったものの方が大きければそちらを新ルートとして@selectedを書き換える
 
 data = <<-"EOD"
 75
@@ -24,71 +25,87 @@ EOD
 @ary = data.split(/\n/).map{|l| l.split(/\s/).map{|n| n.to_i}}
 @selected = Array.new
 
-# 再帰でたどる by honma
-def search_route(mnt, route, list, position = [0, 0])
-  if (mnt.length) -1 == (position[0]) # 最後の行
-    route << list
-    list = []
-    position = [0, 0]
-    return
-  end
-  (position[1]..(position[1])+1).each do |m|
-    search_route(mnt, route, list + [mnt[position[0] + 1][m]], [position[0] + 1, m])
-  end
-  return route
+# @selected の最後から次の大きい方を選択する
+# @selected はary_part より1行短い つまり ary_part は1行ずつ増える想定
+def choose(ary_part)
+  lsp = @selected[-1] # last_selected_position
+  nsp = Array.new     # new_selected_position
+  @selected << nsp = ary_part[lsp[0] + 1][lsp[1]] >= ary_part[lsp[0] + 1][lsp[1] + 1] \
+    ? [lsp[0] + 1, lsp[1]] \
+    : [lsp[0] + 1, lsp[1] + 1]
+  puts "new_selected: " + val(nsp).to_s if $DEBUG
 end
 
-# @selected の最後から選択する(しなおす)
-def choose(ary_part)
-  row_start_from = (@selected.size) - 1
-  # pos は@selectedの最後の要素の位置
-  pos = ary_part[row_start_from].index(@selected[-1]) || 0
+def val(pos, ary = @ary)
+  #puts "val: " + ary[pos[0]][pos[1]].to_s + " pos:" + pos.to_s if $DEBUG
+  return ary[pos[0]][pos[1]]
+end
+def row(pos)
+  #puts "row: " + pos[0].to_s if $DEBUG
+  return pos[0]
+end
+def x(pos)
+  #puts "x: " + pos[1].to_s if $DEBUG
+  return pos[1]
+end
 
-  # mnt_relative は、@selectedの最後から選択しうる山
-  mnt_relative = Array.new
-  (row_start_from .. (ary_part.size)-1).each do |n|
-    mnt_relative << ary_part[n][pos .. pos + (n - row_start_from)]
-  end
-  puts "mnt_relative: " + mnt_relative.to_s if $DEBUG
-  route = Array.new
-  route = search_route(mnt_relative, route, [@selected[-1]])
-  puts "routes: " + route.to_s if $DEBUG
-  max_route = []
-  max = 0
-  route.each do |r|
-    s = r.inject(0){|s, n| s += n}
-    if s > max
-      max = s
-      max_route = r
+def deep_copy(ary)
+  return Marshal.load(Marshal.dump(ary))
+end
+def search_bigger_route(ary_part, next_pos, mp, rsp)
+  mp << next_pos
+  rsp << @selected[row(next_pos)]
+  # @selectedにぶつかったらやめ
+  if (x(rsp[-1]) == x(mp[-1]))
+    puts "rsp: " + rsp.map{|n|val(n)}.to_s if $DEBUG
+    puts "mp: " + mp.map{|n|val(n)}.to_s if $DEBUG
+    # mpの合計 > rspの合計なら、@selectedを書き換える
+    # 不等号でよい。(どうせ後から上書きされるので)
+    if rsp.map{|n|val(n)}.inject(&:+) < mp.map{|n|val(n)}.inject(&:+) 
+      puts "overwrite @selected." if $DEBUG
+      puts "@selected before: " + @selected.map{|n|val(n)}.to_s + ":" + @selected.map{|n|val(n)}.inject(0){|s,n|s+=n}.to_s if $DEBUG
+      @selected[-(mp.length) .. -1] = mp.reverse
+      puts "@selected after : " + @selected.map{|n|val(n)}.to_s + ":" + @selected.map{|n|val(n)}.inject(0){|s,n|s+=n}.to_s if $DEBUG
     end
+    return
   end
-  puts "max_route: " + max_route.to_s if $DEBUG
-  # max_route を@selected に追加
-  # max_route の先頭は@selected の最後と同じなので1個shift
-  max_route.shift
-  max_route.each do |n|
-    @selected << n
+  # 途中でも、selectedの合計より小さくなってしまったらやめてよい
+  return if rsp.map{|n|val(n)}.inject(&:+) > mp.map{|n|val(n)}.inject(&:+)
+  
+  # 右端じゃなかったら、右上を走査
+  if x(mp[-1]) != ( @ary[row(mp[-1])].length ) - 1
+    search_bigger_route(ary_part, [row(mp[-1]) -1, x(mp[-1])], deep_copy(mp), deep_copy(rsp))
   end
-  puts "selected: " + @selected.to_s if $DEBUG
+  # 左端じゃなかったら、左上を走査
+  if x(mp[-1]) != 0
+    search_bigger_route(ary_part, [row(mp[-1]) -1, x(mp[-1]) -1 ], deep_copy(mp), deep_copy(rsp))
+  end
+  return 
+end
+
+# 選び直す必要があるかどうかを判定
+# 判定にあたっては、@selectedを逆に辿ったもの(rsp)と大きい数字から辿ったもの(mp)とを比べる
+def overwrite_selected(ary_part)
+  puts "overwrite_selected(): " + ((ary_part.length) -1).to_s if $DEBUG
+  ary_part[-1].each_with_index do |m, i|
+    next if m < val(@selected[-1]) # 同じまたは大きい数字からはすべて辿る
+    rsp = [] # reverse_selected_positions
+    mp = [] # max_positions
+    search_bigger_route(ary_part, [(ary_part.length) -1, i], mp, rsp)
+  end
+  return false
 end
 
 ary_part = Array.new
-@selected << 75
+@selected << [0,0] # 75
 ary_part << @ary[0]
-#ary_part << @ary[1]
 (1..14).each do |n|
   ary_part << @ary[n]
   choose(ary_part)
   # ここで、行のmaxじゃない時に、どこまで戻るかのロジックが必要
-  # ここをブラッシュアップできれば何行でも解ける！
-  if @ary[n].max != @selected[-1] && diff = @ary[n].max - @selected[-1]
-    puts "diff: " + diff.to_s if $DEBUG
-    # とりあえず2行分消して再選択
-    @selected.pop
-    @selected.pop
-    choose(ary_part)
-  end
+  # ここをブラッシュアップできれば何行でも解ける！=>できた！
+  overwrite_selected(ary_part)
 end
 
-p @selected.inject(0){|s,n| s += n}
-p @selected
+p @selected.map{|p| val(p)}.inject(0){|s,n| s+= n}
+p @selected.map{|p| val(p)}
