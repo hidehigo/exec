@@ -28,6 +28,7 @@ sub next_prime_candidate {
 sub is_prime {
   my $n = shift;
   foreach my $p (@primes) {
+    last if $p * $p > $n;
     $loop_cnt ++;
     return 0 unless $n % $p;
   }

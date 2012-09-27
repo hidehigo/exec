@@ -17,6 +17,7 @@ end
 def prime?(n)
   @primes.each do |prime|
     @loop_cnt += 1
+    break if prime ** 2 > n
     return false if n % prime  == 0
   end
   (@primes[-1] .. n ).each do |m|
