@@ -1,7 +1,8 @@
 #/usr/bin/perl
 use strict;
+use Time::HiRes;
+my $start = Time::HiRes::time;  
 
-#start = Time.now
 my @primes = (2, 3, 5, 7);
 my $loop_cnt = 0;
 my $loop_cnt2 = 0;
@@ -28,21 +29,16 @@ sub next_prime_candidate {
 sub is_prime {
   my $n = shift;
   foreach my $p (@primes) {
-    last if $p * $p > $n;
+    return 1 if $p * $p > $n;
     $loop_cnt ++;
     return 0 unless $n % $p;
-  }
-  for (my $i = $primes[-1]; $i < $n; $i ++) {
-    $loop_cnt2 ++;
-    return 1 if $i * $i > $n;
-    return 0 unless $n % $i;
   }
   return 0;
 }
 
 my $n = 8;
 while (@primes < 10000) {
-  $loop_cnt3 ++;
+  #$loop_cnt3 ++;
   if ( is_prime($n) ) {
     push(@primes, $n);
     $sum += $n;
@@ -54,7 +50,7 @@ while (@primes < 10000) {
 
 #print $primes[-1]."\n";
 print $sum."\n";
-#print "loop_cnt: $loop_cnt\n";
+print "loop_cnt: $loop_cnt\n";
+printf("%0.3f",Time::HiRes::time - $start); 
 #print "loop_cnt: $loop_cnt2\n";
 #print "loop_cnt: $loop_cnt3\n";
-#print "took " + ((Time.now - start) * 1000).round.to_s + "ms.\n"
