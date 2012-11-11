@@ -3,7 +3,7 @@ require 'rspec'
 require './message_filter'
 
 describe MessageFilter do
-  before(:each) do
+  before() do
     @filter = MessageFilter.new('foo')
   end
   it 'shold detect message with NG word' do
