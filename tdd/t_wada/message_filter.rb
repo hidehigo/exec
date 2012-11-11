@@ -3,6 +3,6 @@ class MessageFilter
     @word = word
   end
   def detect?(text)
-    return true
+    text.include?(@word)
   end
 end
