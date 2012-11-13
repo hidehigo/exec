@@ -7,7 +7,7 @@ module Codebreaker
         output = double('output')
         game = Game.new(output)
 
-        output.should_receive(:puts).with('Welcome to CodeBreaker!')
+        output.should_receive(:puts).with('Welcome to Codebreaker!')
 
         game.start
       end
