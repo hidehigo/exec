@@ -1,10 +1,10 @@
 require 'rubygems'
 require 'rspec'
-require './money.rb'
+require './dollar.rb'
 
-describe Money, 'with initial value 5' do
-  before(:all) { @money = Money.new(5) } 
-  subject { @money }
+describe Dollar, 'with initial value 5' do
+  before(:all) { @dollar = Dollar.new(5) } 
+  subject { @dollar }
   it { subject.amount.should == 5 } 
   it { subject.times(2).should be_true }
   it { subject.amount.should == 10 }
