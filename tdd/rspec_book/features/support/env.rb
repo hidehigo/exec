@@ -6,3 +6,6 @@
 # We make no guarantees that this code is fit for any purpose. 
 # Visit http://www.pragmaticprogrammer.com/titles/achbd for more book information.
 #---
+
+$LOAD_PATH << File.expand_path('../../../lib', __FILE__)
+require 'codebreaker'
