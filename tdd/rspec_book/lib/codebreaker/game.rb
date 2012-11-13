@@ -11,11 +11,14 @@ module Codebreaker
     end
 
     def guess(guess)
-      if @secret.include?(guess[0])
-        @output.puts '-'
+      if guess[0] == @secret[0]
+        mark = '+'
+      elsif @secret.include?(guess[0])
+        mark = '-'
       else
-        @output.puts ''
+        mark = ''
       end
+      @output.puts mark
     end
   end
 end
