@@ -22,3 +22,8 @@ end
 def output
   @output ||= Output.new
 end
+
+Given /^the secret code is "([^"]*)"$/ do |secret|
+  game = Codebreaker::Game.new(output)
+  game.start(secret)
+end
