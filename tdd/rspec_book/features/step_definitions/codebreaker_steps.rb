@@ -28,10 +28,10 @@ Given /^the secret code is "([^"]*)"$/ do |secret|
   @game.start(secret)
 end
 
-When /^I guess "([^"])*"$/ do |guess|
+When /^I guess "([^"]*)"$/ do |guess|
   @game.guess(guess)
 end
 
-Then /^the mark should be "([^"])"$/ do |mark|
+Then /^the mark should be "([^"]*)"$/ do |mark|
   output.messages.should include(mark)
 end
