@@ -3,7 +3,7 @@ class Dollar
     @amount = amount
   end
   attr_reader :amount 
-  def times(q)
-    @amount *= q
+  def times(multiplier)
+    @amount *= multiplier
   end
 end
