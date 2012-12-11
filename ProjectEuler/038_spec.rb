@@ -30,4 +30,10 @@ describe "pandegital class" do
       @pan.get_multiplyer(2).should == []
     end
   end
+  describe "can't get multiplyer ary" do
+    it "should return empty ary when multiplyer includes 0" do
+      # 539210784 is not pandigital
+      @pan.get_multiplyer(5392).should == []
+    end
+  end
 end
