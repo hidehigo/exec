@@ -142,17 +142,25 @@ def reachable(pos)
 end
 # queueの中で最小のposを返す
 def smallest
-  min = @queue.flatten.compact.delete_if{|n| ( n == nil || n == 0 ) ? true : false}.min
+  #min = @queue.flatten.compact.delete_if{|n| ( n == nil || n == 0 ) ? true : false}.min
   #p min
+  min = nil
   minx = 0
   miny = 0
-  @queue.each_index do |j|
-    @queue[j].each_index do |i|
-      if @queue[j][i] == min
-        return Pos.new(i,j)
+  (0 .. ( @qh -1 )).each do |j|
+    (0 .. ( @qw -1 )).each do |i|
+      if @queue[j][i]
+        if min == nil || @queue[j][i] < min 
+          if @queue[j][i] != 0
+            min = @queue[j][i]
+            minx = i
+            miny = j
+          end
+        end
       end
     end
   end
+  return Pos.new(minx,miny)
 end
 
 nowp = Pos.new(0,0)
@@ -181,6 +189,9 @@ loop do
   @queue[nowp.y][nowp.x] = 0 unless flg
   nowp = smallest
   puts "loops:" + @loop.to_s if $DEBUG
+  #@queue.each do |l|
+  #  p l
+  #end
   @loop += 1
   #p nowp if $DEBUG
 end
