@@ -2,11 +2,12 @@
 # 初めてのダイクストラ@euler081
 # http://odz.sakura.ne.jp/projecteuler/index.php?cmd=read&page=Problem%2081
 # 自分実装
-# でも、スゲー遅いｗ
 # 
-# 未評価点はnil
-# @queueの(0とnilを除いた)最小点を評価していく
+# @queueの0を除いた最小点を評価していく
 # 進めるところすべてが最短にならない場合は、loopしてしまうので0にする
+#
+# @queueを2次元配列で持つのをやめhashで持つ[ Pos(x,y).to_str => cost ]
+# これでだいぶん早くなった
 
 if $DEBUG 
 
@@ -113,8 +114,7 @@ w = @matrix[0].size
 @qh = h
 @qw = w
 
-@queue = Array.new
-(@qh).times{@queue.push(Array.new(@qw,nil))}
+@queue = Hash.new
 
 class Pos 
   def initialize(x,y)
@@ -131,6 +131,9 @@ class Pos
     return true if @x == pos.x && @y == pos.y
     return false
   end
+  def to_str
+    return @x.to_s + "," + @y.to_s
+  end
 end
 
 # 現posから動きうる場所
@@ -142,60 +145,49 @@ def reachable(pos)
 end
 # queueの中で最小のposを返す
 def smallest
-  #min = @queue.flatten.compact.delete_if{|n| ( n == nil || n == 0 ) ? true : false}.min
-  #p min
-  min = nil
-  minx = 0
-  miny = 0
-  (0 .. ( @qh -1 )).each do |j|
-    (0 .. ( @qw -1 )).each do |i|
-      if @queue[j][i]
-        if min == nil || @queue[j][i] < min 
-          if @queue[j][i] != 0
-            min = @queue[j][i]
-            minx = i
-            miny = j
-          end
-        end
-      end
+  minp = Pos.new(0,0).to_str
+  min = 10000000 # magic!
+  @queue.each do |posstr, cost|
+    if cost < min && cost != 0
+      minp = posstr
+      min = cost
     end
   end
-  return Pos.new(minx,miny)
+  #p minp
+  minx, miny = minp.split(',')
+  return Pos.new(minx.to_i, miny.to_i)
 end
 
 nowp = Pos.new(0,0)
-@queue[nowp.y][nowp.x] = @matrix[nowp.y][nowp.x]
+@queue.store( nowp.to_str, @matrix[nowp.y][nowp.x] )
 endp = Pos.new(@qw-1,@qh-1)
 @loop = 1
 loop do
   break if nowp == endp
+  puts "loops:" + @loop.to_s if $DEBUG
   # 行ける箇所がすべて最短じゃなかったらその点は不要 -> 0
   flg = false
   reachable(nowp).each do |ary|
-    if @queue[ary.y][ary.x] == nil
+    if @queue[ary.to_str] == nil
       # queueが空なら到達コストを入れる
-      @queue[ary.y][ary.x] = @queue[nowp.y][nowp.x] + @matrix[ary.y][ary.x]
+      @queue.store( ary.to_str, @queue[nowp.to_str] + @matrix[ary.y][ary.x])
       flg = true
     else
       # queueが空じゃなければ、すでにあるものと到達コストの小さい方
-      if @queue[ary.y][ary.x] > @queue[nowp.y][nowp.x] + @matrix[ary.y][ary.x]
-        @queue[ary.y][ary.x] = @queue[nowp.y][nowp.x] + @matrix[ary.y][ary.x]
+      if @queue[ary.to_str] > @queue[nowp.to_str] + @matrix[ary.y][ary.x]
+        @queue[ary.to_str] = @queue[nowp.to_str] + @matrix[ary.y][ary.x]
         flg = true
       else
         # そのまま
       end
     end
   end
-  @queue[nowp.y][nowp.x] = 0 unless flg
+  @queue[nowp.to_str] = 0 unless flg
   nowp = smallest
-  puts "loops:" + @loop.to_s if $DEBUG
-  #@queue.each do |l|
-  #  p l
-  #end
   @loop += 1
   #p nowp if $DEBUG
 end
 
-p @queue
+p @queue[Pos.new(@qw-1,@qh-1).to_str]
 puts "loops:" + @loop.to_s
 
