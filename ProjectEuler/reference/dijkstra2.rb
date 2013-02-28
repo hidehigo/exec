@@ -154,8 +154,9 @@ def search(pos)
     nextp = nil
     reachable(pos).each do |r|
       cost_to_reach = @visited[pos.to_str] + @matrix[r.y][r.x]
-      if costs[r.to_str].nil?
-        costs[r.to_str] = cost_to_reach
+      r_key = r.to_str
+      if costs[r_key].nil?
+        costs[r_key] = cost_to_reach
       elsif costs[r.to_str] < cost_to_reach
         # そのまま
       else 
