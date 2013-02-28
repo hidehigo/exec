@@ -158,7 +158,8 @@ def search(pos)
   @visited = Hash.new
   @visited.store(pos.to_str, @matrix[pos.y][pos.x])
 
-  while pos != @endp do
+  # 確定した点が右端になったら終了してよい
+  while pos.x != @qw -1 do
     nextp = nil
     reachable(pos).each do |r|
       cost_to_reach = @visited[pos.to_str] + @matrix[r.y][r.x]
@@ -173,12 +174,6 @@ def search(pos)
       #  ある点へのcostが一緒なので、前に見た最小点より小さくならないから。
       #  costs[r.to_str] = cost_to_reach
       #end
-      
-      # 右端に届いたらvisitedに入れてしまう
-      if r.x == @qw - 1 && r.y != @qh - 1
-        @visited.store(r_key,costs[r_key])
-        costs.delete(r_key)
-      end
     end
     # 最小を確定
     min = (1.0/0.0)
@@ -211,6 +206,7 @@ right_min = Array.new
   (0 .. @qh-1).each do |yy|
     right.push(@visited[Pos.new(@qw-1,yy).to_str])
   end
+  #p right
   right_min.push(right.compact.min)
 end
 p right_min.min
