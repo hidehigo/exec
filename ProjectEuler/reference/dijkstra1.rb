@@ -9,6 +9,7 @@
 # @queueを2次元配列で持つのをやめhashで持つ[ Pos(x,y).to_str => cost ]
 # これでだいぶん早くなった
 
+start = Time.now
 if $DEBUG 
 
 data = <<'DATA'
@@ -117,22 +118,21 @@ w = @matrix[0].size
 @queue = Hash.new
 
 class Pos 
+  attr_reader :x, :y
   def initialize(x,y)
     @x = x
     @y = y
   end
-  def x
-    @x
-  end
-  def y
-    @y
-  end
   def ==(pos)
-    return true if @x == pos.x && @y == pos.y
+    return true if x == pos.x && y == pos.y
     return false
   end
   def to_str
-    return @x.to_s + "," + @y.to_s
+    s = String.new
+    s << x.to_s
+    s << ","
+    s << y.to_s
+    return s.intern
   end
 end
 
@@ -154,35 +154,38 @@ def smallest
     end
   end
   #p minp
-  minx, miny = minp.split(',')
+  minx, miny = minp.to_s.split(',')
   return Pos.new(minx.to_i, miny.to_i)
 end
 
 nowp = Pos.new(0,0)
-@queue.store( nowp.to_str, @matrix[nowp.y][nowp.x] )
+@queue[nowp.to_str] = @matrix[nowp.y][nowp.x]
 endp = Pos.new(@qw-1,@qh-1)
 @loop = 1
 loop do
   break if nowp == endp
   puts "loops:" + @loop.to_s if $DEBUG
+  #p @queue
   # 行ける箇所がすべて最短じゃなかったらその点は不要 -> 0
   flg = false
+  nowp_key = nowp.to_str
   reachable(nowp).each do |ary|
-    if @queue[ary.to_str] == nil
+    ary_key = ary.to_str
+    if @queue[ary_key].nil?
       # queueが空なら到達コストを入れる
-      @queue.store( ary.to_str, @queue[nowp.to_str] + @matrix[ary.y][ary.x])
+      @queue[ary_key] = @queue[nowp_key] + @matrix[ary.y][ary.x]
       flg = true
     else
       # queueが空じゃなければ、すでにあるものと到達コストの小さい方
-      if @queue[ary.to_str] > @queue[nowp.to_str] + @matrix[ary.y][ary.x]
-        @queue[ary.to_str] = @queue[nowp.to_str] + @matrix[ary.y][ary.x]
+      if @queue[ary_key] > @queue[nowp_key] + @matrix[ary.y][ary.x]
+        @queue[ary_key] = @queue[nowp_key] + @matrix[ary.y][ary.x]
         flg = true
       else
         # そのまま
       end
     end
   end
-  @queue[nowp.to_str] = 0 unless flg
+  @queue[nowp_key] = 0 unless flg
   nowp = smallest
   @loop += 1
   #p nowp if $DEBUG
@@ -190,4 +193,5 @@ end
 
 p @queue[Pos.new(@qw-1,@qh-1).to_str]
 puts "loops:" + @loop.to_s
+print "took " + ((Time.now - start) * 1000).round.to_s + "ms.\n"
 
