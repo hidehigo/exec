@@ -135,12 +135,18 @@ end
 # 現posから動きうる場所
 def reachable(pos)
   reachable = Array.new
-  p1 = Pos.new(pos.x+1,pos.y)
-  reachable.push(p1) if ( pos.x < @qw - 1 && ! @visited[p1.to_str])
-  p2 = Pos.new(pos.x,pos.y+1)
-  reachable.push(p2) if ( pos.y < @qh - 1 && ! @visited[p2.to_str])
-  p3 = Pos.new(pos.x,pos.y-1)
-  reachable.push(p3) if ( pos.y > 0 && ! @visited[p3.to_str] ) # 上
+  if pos.x < @qw - 1  # 右
+    p1 = Pos.new(pos.x+1,pos.y)
+    reachable.push(p1) if ! @visited[p1.to_str]
+  end
+  if pos.y < @qh - 1  # 下
+    p2 = Pos.new(pos.x,pos.y+1)
+    reachable.push(p2) if ! @visited[p2.to_str]
+  end
+  if pos.y > 0  # 上
+    p3 = Pos.new(pos.x,pos.y-1)
+    reachable.push(p3) if ! @visited[p3.to_str]
+  end
   return reachable
 end
 
@@ -152,7 +158,7 @@ def search(pos)
   @visited = Hash.new
   @visited.store(pos.to_str, @matrix[pos.y][pos.x])
 
-  while pos != Pos.new(@qh-1,@qw-1) do
+  while pos != @endp do
     nextp = nil
     reachable(pos).each do |r|
       cost_to_reach = @visited[pos.to_str] + @matrix[r.y][r.x]
@@ -197,6 +203,7 @@ def search(pos)
 end
 
 @loop = 1
+@endp = Pos.new(@qw-1, @qh-1)
 right_min = Array.new
 (0..@qh-1).each do |y|
   search(Pos.new(0,y))
