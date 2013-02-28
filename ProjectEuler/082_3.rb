@@ -208,6 +208,7 @@ right_min = Array.new
   end
   #p right
   right_min.push(right.compact.min)
+  @visited.clear
 end
 p right_min.min
 
