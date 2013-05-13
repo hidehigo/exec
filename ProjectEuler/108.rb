@@ -22,8 +22,9 @@ while (3 ** max_i < work_ansnum) do max_i += 1 end
 
 # [(2*1)+1, (2*1)+1, (2*1)+1, ..] (max_i個)から始める
 # いったん昇順で
+# 2^d は最小ではないでしょう。ということで1は確認しないcheat
 work_idxs = Array.new
-(1 .. max_i).to_a.each do |now_i| # dの配列[(2*1)+1, (2*1)+1, (2*1)+1, ..]の個数を減らしていく
+(2 .. max_i).to_a.each do |now_i| # dの配列[(2*1)+1, (2*1)+1, (2*1)+1, ..]の個数を減らしていく
   work = Array.new(now_i, 1) 
   while( work.inject(1){|prd, d| prd *= (2*d)+1 } < work_ansnum ) do
     work[work.index(work.min)] += 1
