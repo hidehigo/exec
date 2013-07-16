@@ -1,6 +1,7 @@
 use warnings;
 use strict;
 
+# P.32 check the behavior of is_deeply
 package ClassA;
 sub new {
   my ($class) = @_;
