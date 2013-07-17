@@ -1,4 +1,13 @@
-this is a repo for exec 
+# this is a repo for practice
+
+## structure
+
+* ProjectEuler : オイラー。常時更新
+* TanoshiiRuby : 楽しいruby写経用＝完了
+* pullreq_practice : プルリク練習＝完了
+* tdd : 各種TDD練習
+
+## history 
 finished tdd by t_wada-san tdd/ @2012/11/11
 finished pullreq practice pullreq_practice @2012/10/16
 finished chapter21 @2012/08/15 楽しいrubyここでおわり！
