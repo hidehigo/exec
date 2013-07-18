@@ -1,6 +1,6 @@
 use warnings;
 use strict;
-use Test::More tests => 12;
+use Test::More qw(no_plan);
 
 BEGIN { use_ok('PercentOwnership'); }
 
@@ -54,5 +54,21 @@ TWO_UNITS: {
     50,
     '50/50 ownership split for unit 102'
   );
-}
 
+TODO: {
+  local $TODO = 
+    "Need to return an undefined for non-existant units";
+    is (
+      $po->percent_ownership( unit_number => 103 ),
+      undef,
+      'no ownership'
+    );
+}
+SKIP: {
+  skip "The conditions are not right to run this test", 1;
+  ok(
+    $po->something_that_requires_notwork_access,
+    'did a network operation'
+  )
+}
+}

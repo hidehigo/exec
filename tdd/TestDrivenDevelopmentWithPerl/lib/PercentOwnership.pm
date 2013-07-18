@@ -19,6 +19,7 @@ sub add_unit {
 sub percent_ownership { 
   my ( $self, %args ) = @_;
 
+  return unless exists $self->{unit_info}->{ $args{unit_number} };
   my $building_size = sum map {
     $self->{unit_info}->{$_}->{square_footage} }
     keys %{ $self->{unit_info} };
