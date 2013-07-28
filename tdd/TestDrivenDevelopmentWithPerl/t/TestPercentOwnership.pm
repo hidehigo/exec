@@ -7,8 +7,10 @@ use Test::More;
 
 __PACKAGE__->runtests unless caller;
 
-sub my_test : Test {
-  pass;
+#sub startup_test : Test( startup => 2 ) {
+sub startup_test : Test( 2 ) {
+  use_ok( 'PercentOwnership' );
+  can_ok( 'PercentOwnership', 'new' );
 }
 
 1;
