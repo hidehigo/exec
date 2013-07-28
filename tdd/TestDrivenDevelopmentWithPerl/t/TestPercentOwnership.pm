@@ -8,17 +8,21 @@ use PercentOwnership;
 
 __PACKAGE__->runtests unless caller;
 
-#sub startup_test : Test( startup => 2 ) {
-sub startup_test : Test( 2 ) {
+sub startup_test : Test( startup => 2 ) {
   use_ok( 'PercentOwnership' );
   can_ok( 'PercentOwnership', 'new' );
 }
 
-sub single_unit : Test(4) {
+sub setup_test : Test( setup => 2 ) {
   my ($self) = @_;
-  my $po = PercentOwnership->new();
-  isa_ok( $po, 'PercentOwnership' );
-  can_ok( 'PercentOwnership', qw( add_unit percent_ownership ) );
+  $self->{po} = PercentOwnership->new();
+  isa_ok( $self->{po}, 'PercentOwnership' );
+  can_ok( $self->{po}, qw(add_unit percent_ownership) );
+}
+
+sub single_unit : Test(2) {
+  my ($self) = @_;
+  my $po = $self->{po};
 
   ok(
     $po->add_unit(
@@ -32,11 +36,9 @@ sub single_unit : Test(4) {
    'single unit condo' );
 }
 
-sub two_units : Test(6) {
+sub two_units : Test(4) {
   my ($self) = @_;
-  my $po = PercentOwnership->new();
-  isa_ok( $po, 'PercentOwnership' );
-  can_ok( 'PercentOwnership', qw( add_unit percent_ownership ) );
+  my $po = $self->{po};
 
   ok(
     $po->add_unit(
@@ -60,5 +62,7 @@ sub two_units : Test(6) {
   is( $po->percent_ownership( unit_number => 102 ), 50,
    'unit 102 got the correct percentage' );
 }
+
+
 1;
 
