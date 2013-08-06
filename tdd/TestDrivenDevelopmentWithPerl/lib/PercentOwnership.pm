@@ -13,6 +13,7 @@ sub new {
 sub add_unit { 
   my ( $self, %unit_info ) = @_;
 
+  $unit_info{floor} = 0 if ( $unit_info{floor} < 0 );
   $self->{unit_info}->{ $unit_info{unit_number} } = \%unit_info;
 }
 
