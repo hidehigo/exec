@@ -54,6 +54,25 @@ sub two_units : Test(4) {
    'unit 102 got the correct percentage' );
 }
 
+sub multiple_floors : Test(2) {
+  my ($self) = @_;
+
+  $self->unit_adder( @{$_} )
+      for ( [ 101, 500, 1 ], [201, 500, 2] );
+
+  is(
+    $self->{po}->percent_ownership( unit_number => 101 ),
+    49.75,
+    'multiple floors - 101'
+  );
+
+  is(
+    $self->{po}->percent_ownership( unit_number => 201 ),
+    50.25,
+    'multiple floors - 201'
+  );
+}
+
 
 1;
 
