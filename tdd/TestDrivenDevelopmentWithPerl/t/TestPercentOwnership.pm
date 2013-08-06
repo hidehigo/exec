@@ -73,6 +73,21 @@ sub multiple_floors : Test(2) {
   );
 }
 
+sub basement_units : Test(2) {
+  my ($self) = @_;
+  $self->unit_adder( @{$_} ) for ( ['001', 500, 0], ['101', 500, 1], );
 
+  is(
+    $self->{po}->percent_ownership( unit_number => '001' ),
+    49.75,
+    'basement units - 001'
+  );
+
+  is(
+    $self->{po}->percent_ownership( unit_number => '101' ),
+    50.25,
+    'basement units - 101'
+  );
+}
 1;
 
