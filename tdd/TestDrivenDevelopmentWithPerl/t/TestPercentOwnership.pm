@@ -117,5 +117,13 @@ sub non_existant_unit : Test(1) {
   );
 }
 
+sub add_unit_with_no_arguments : Test(1) {
+  my ($self) = @_;
+  is(
+    $self->{po}->add_unit,
+    undef,
+    'no arguments provided to add_unit'
+  );
+}
 1;
 

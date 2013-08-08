@@ -13,6 +13,9 @@ sub new {
 sub add_unit { 
   my ( $self, %unit_info ) = @_;
 
+  return unless 
+    ( grep { exists $unit_info{$_} }
+      qw(unit_number square_footage floor)) == 3;
   $unit_info{floor} = 0 if ( $unit_info{floor} < 0 );
   $self->{unit_info}->{ $unit_info{unit_number} } = \%unit_info;
 }
