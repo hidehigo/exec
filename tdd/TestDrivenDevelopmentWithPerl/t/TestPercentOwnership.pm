@@ -125,5 +125,15 @@ sub add_unit_with_no_arguments : Test(1) {
     'no arguments provided to add_unit'
   );
 }
+
+sub percent_ownership_with_no_arguments : Test(1) {
+  my ($self) = @_;
+  $self->unit_adder( 100, 500, 1 );
+  is(
+    $self->{po}->percent_ownership,
+    undef,
+    'no arguments provided to percent_ownership'
+  );
+}
 1;
 
