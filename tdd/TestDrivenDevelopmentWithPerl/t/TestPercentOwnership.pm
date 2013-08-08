@@ -106,5 +106,16 @@ sub subbasement_units : Test(2) {
     'basement units - 101'
   );
 }
+
+sub non_existant_unit : Test(1) {
+  my ($self) = @_;
+  $self->unit_adder( 100, 500, 1 );
+  is(
+    $self->{po}->percent_ownership( unit_number => 0 ),
+    undef,
+    'return undef for non-existant units'
+  );
+}
+
 1;
 
