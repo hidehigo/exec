@@ -144,5 +144,14 @@ sub add_unit_with_invalid_square_footage : Test(1) {
     'negative square footage'
   );
 }
+
+sub add_unit_with_string_square_footage : Test(1) {
+  my ($self) = @_;
+  is(
+    $self->unit_adder( 100, 'oops', 1 ),
+    undef,
+    'string square footage'
+  );
+}
 1;
 
