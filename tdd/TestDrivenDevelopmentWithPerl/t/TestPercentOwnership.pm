@@ -135,5 +135,14 @@ sub percent_ownership_with_no_arguments : Test(1) {
     'no arguments provided to percent_ownership'
   );
 }
+
+sub add_unit_with_invalid_square_footage : Test(1) {
+  my ($self) = @_;
+  is(
+    $self->unit_adder( 100, -500, 1 ),
+    undef,
+    'negative square footage'
+  );
+}
 1;
 
