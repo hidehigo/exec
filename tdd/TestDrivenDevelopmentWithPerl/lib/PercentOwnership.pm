@@ -13,21 +13,30 @@ sub new {
 sub add_unit { 
   my ( $self, %unit_info ) = @_;
 
+  return unless 
+    ( grep { exists $unit_info{$_} }
+      qw(unit_number square_footage floor)) == 3;
+
+  return if $unit_info{square_footage} < 0;
+
+  $unit_info{floor} = 0 if ( $unit_info{floor} < 0 );
   $self->{unit_info}->{ $unit_info{unit_number} } = \%unit_info;
 }
 
 sub percent_ownership { 
   my ( $self, %args ) = @_;
 
+  return unless exists $args{ unit_number };
   return unless exists $self->{unit_info}->{ $args{unit_number} };
-  my $building_size = sum map {
-    $self->{unit_info}->{$_}->{square_footage} }
-    keys %{ $self->{unit_info} };
 
-  my $unit_size = 
-    $self->{unit_info}->{ $args{unit_number} }->{square_footage};
+  my $adjusted_building_size = sum map {
+    $self->{unit_info}->{$_}->{square_footage} * sprintf( "1.%02d", $self->{unit_info}->{$_}->{floor} )
+    } keys %{ $self->{unit_info} };
 
-    return sprintf ( "%0.4f", $unit_size / $building_size ) * 100;
+  my $adjusted_unit_size = 
+    $self->{unit_info}->{ $args{unit_number} }->{square_footage} * sprintf( "1.%02d", $self->{unit_info}->{  $args{unit_number}}->{floor} );
+
+  return sprintf ( "%0.4f", $adjusted_unit_size / $adjusted_building_size ) * 100;
 }
 
 1;
