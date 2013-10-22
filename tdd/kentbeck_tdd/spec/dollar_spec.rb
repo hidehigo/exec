@@ -10,8 +10,6 @@ describe Dollar, "" do
     it { @five.times(2) }
   end
   describe "amount should be 10" do
-    pending do
     it { @five.amount.should eq(10) }
-    end
   end
 end
