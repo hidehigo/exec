@@ -7,9 +7,7 @@ describe Dollar, "" do
     it { @five.should_not be nil }
   end
   describe "times twice" do
-    pending do
     it { @five.times(2) }
-    end
   end
   describe "amount should be 10" do
     pending do
