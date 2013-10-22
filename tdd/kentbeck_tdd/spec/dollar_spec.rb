@@ -4,7 +4,7 @@ require 'dollar'
 describe Dollar, "" do
   before { @five = Dollar.new(5) }
   describe "instantiation" do
-    it { @five.sould_not be nil }
+    it { @five.should_not be nil }
   end
   describe "times twice" do
     pending do
