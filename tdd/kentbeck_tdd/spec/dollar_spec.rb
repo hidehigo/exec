@@ -4,12 +4,12 @@ require 'dollar'
 describe Dollar, "" do
   before { @five = Dollar.new(5) }
   describe "instantiation" do
-    it { @five.should_not be_nil }
+    it { expect(@five).not_to be_nil }
   end
   context "times twice => amount should be 10" do
     it {
       @five.times(2)
-      @five.amount.should eq(10)
+      expect(@five.amount).to eq(10)
     }
   end
 end
