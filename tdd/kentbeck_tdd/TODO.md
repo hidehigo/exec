@@ -3,3 +3,4 @@
 * amountのプライベート化
 * Dollarの副作用
 * Moneyの丸め処理
+
