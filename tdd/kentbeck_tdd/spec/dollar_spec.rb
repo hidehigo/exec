@@ -12,4 +12,10 @@ describe Dollar, "#times" do
       expect(@five.amount).to eq(10)
     }
   end
+  context "times three => amount should be 15" do
+    it {
+      @five.times(3)
+      expect(@five.amount).to eq(15)
+    }
+  end
 end
