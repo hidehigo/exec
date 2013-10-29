@@ -22,5 +22,5 @@ end
 
 describe Dollar, "#equals" do
   before { @five = Dollar.new(5) }
-  it { @five.equals(Dollar.new(5)) }
+  it { @five.equals?(Dollar.new(5)) }
 end
