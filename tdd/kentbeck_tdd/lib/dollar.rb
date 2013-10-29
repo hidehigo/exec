@@ -7,6 +7,6 @@ class Dollar
     return Dollar.new( @amount * multiplier )
   end
   def equals?(dollar)
-    return true
+    return true if @amount == dollar.amount
   end
 end
