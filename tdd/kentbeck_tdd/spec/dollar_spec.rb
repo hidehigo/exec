@@ -26,6 +26,6 @@ describe Dollar, "#equals" do
     it { expect( @five.equals?(Dollar.new(5)) ).to be_true }
   end
   context "compare with Dollar.new(6)" do
-    it { expect( @five.equals?(Dollar.new(5)) ).to be_false }
+    it { expect( @five.equals?(Dollar.new(6)) ).to be_false }
   end
 end
