@@ -8,14 +8,12 @@ describe Dollar, "#times" do
   end
   context "times twice => amount should be 10" do
     it {
-      product = @five.times(2)
-      expect(product.amount).to eq(10)
+      expect(@five.times(2)).to eq(Dollar.new(10))
     }
   end
   context "times three => amount should be 15" do
     it {
-      product = @five.times(3)
-      expect(product.amount).to eq(15)
+      expect(@five.times(3)).to eq(Dollar.new(15))
     }
   end
 end
