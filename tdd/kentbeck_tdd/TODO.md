@@ -5,3 +5,5 @@
 * Moneyの丸め処理
 * x equals()
 * hasCode()
+* nullとの等価性
+* オブジェクトとの等価性
