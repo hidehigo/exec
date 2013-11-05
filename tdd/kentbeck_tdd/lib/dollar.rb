@@ -1,3 +1,4 @@
+require 'money'
 class Dollar
   attr_reader :amount
   def initialize(amount)
