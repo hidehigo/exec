@@ -8,3 +8,6 @@
 * nullとの等価性
 * オブジェクトとの等価性
 * 5 CHF * 2 = 10 CHF
+* Dollar とFranc の重複
+* equarls の一般化
+* times の一般化
