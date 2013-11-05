@@ -11,3 +11,4 @@
 * Dollar とFranc の重複
 * equarls の一般化
 * times の一般化
+
