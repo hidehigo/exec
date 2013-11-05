@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 require 'dollar'
-require 'franc'
 describe Dollar, "#times" do
   before { @five = Dollar.new(5) }
   describe "instantiation" do
@@ -26,22 +25,5 @@ describe Dollar, "#equals" do
   end
   context "compare with Dollar.new(6)" do
     it { expect( @five.equals?(Dollar.new(6)) ).to be_false }
-  end
-end
-
-describe Franc, "#times" do
-  before { @five = Franc.new(5) }
-  describe "instantiation" do
-    it { expect(@five).not_to be_nil }
-  end
-  context "times twice => amount should be 10" do
-    it {
-      expect(@five.times(2).equals?(Franc.new(10))).to be_true
-    }
-  end
-  context "times three => amount should be 15" do
-    it {
-      expect(@five.times(3).equals?(Franc.new(15))).to be_true
-    }
   end
 end
