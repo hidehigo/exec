@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 require 'dollar'
+require 'franc'
 describe Dollar, "#times" do
   before { @five = Dollar.new(5) }
   describe "instantiation" do
