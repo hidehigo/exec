@@ -1,9 +1,5 @@
 require 'money'
-class Dollar
-  attr_reader :amount
-  def initialize(amount)
-    @amount = amount 
-  end
+class Dollar < Money
   def times(multiplier)
     return Dollar.new( @amount * multiplier )
   end
