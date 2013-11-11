@@ -2,7 +2,7 @@
 
 require 'dollar'
 describe Dollar, "#times" do
-  before { @five = Dollar.new(5) }
+  before { @five = Money.dollar(5) }
   describe "instantiation" do
     it { expect(@five).not_to be_nil }
   end
