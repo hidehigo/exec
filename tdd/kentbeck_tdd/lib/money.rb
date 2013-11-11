@@ -4,6 +4,6 @@ class Money
     @amount = amount
   end
   def equals?(money)
-    return @amount == money.amount
+    return @amount == money.amount && self.class == money.class
   end
 end
