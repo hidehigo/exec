@@ -1,3 +1,4 @@
+require 'dollar'
 class Money
   attr_reader :amount
   def initialize(amount)
@@ -5,5 +6,8 @@ class Money
   end
   def equals?(money)
     return @amount == money.amount && self.class == money.class
+  end
+  def self.dollar(amount)
+    return Dollar.new(amount)
   end
 end
