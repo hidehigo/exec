@@ -18,3 +18,14 @@ describe Franc, "#times" do
     }
   end
 end
+
+describe Franc, "#equals" do
+  before { @five = Franc.new(5) }
+  context "compare with Franc.new(5)" do
+    it { expect( @five.equals?(Franc.new(5)) ).to be_true }
+  end
+  context "compare with Franc.new(6)" do
+    it { expect( @five.equals?(Franc.new(6)) ).to be_false }
+  end
+end
+
