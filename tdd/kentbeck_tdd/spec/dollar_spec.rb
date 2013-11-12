@@ -8,12 +8,12 @@ describe Dollar, "#times" do
   end
   context "times twice => amount should be 10" do
     it {
-      expect(@five.times(2).equals?(Dollar.new(10))).to be_true
+      expect(@five.times(2).equals?(Money.dollar(10))).to be_true
     }
   end
   context "times three => amount should be 15" do
     it {
-      expect(@five.times(3).equals?(Dollar.new(15))).to be_true
+      expect(@five.times(3).equals?(Money.dollar(15))).to be_true
     }
   end
 end
