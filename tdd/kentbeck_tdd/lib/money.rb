@@ -1,4 +1,4 @@
-require 'dollar'
+autoload :Dollar, 'dollar'
 class Money
   attr_reader :amount
   def initialize(amount)
