@@ -4,7 +4,7 @@ class Money
   def initialize(amount)
     @amount = amount
   end
-  def equals?(money)
+  def ==(money)
     return @amount == money.amount && self.class == money.class
   end
   def self.dollar(amount)

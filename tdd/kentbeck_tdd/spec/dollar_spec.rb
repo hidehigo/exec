@@ -8,12 +8,12 @@ describe Dollar, "#times" do
   end
   context "times twice => amount should be 10" do
     it {
-      expect(@five.times(2).equals?(Money.dollar(10))).to be_true
+      expect(@five.times(2) == Money.dollar(10)).to be_true
     }
   end
   context "times three => amount should be 15" do
     it {
-      expect(@five.times(3).equals?(Money.dollar(15))).to be_true
+      expect(@five.times(3) == Money.dollar(15)).to be_true
     }
   end
 end
@@ -21,9 +21,9 @@ end
 describe Dollar, "#equals" do
   before { @five = Dollar.new(5) }
   context "compare with Dollar.new(5)" do
-    it { expect( @five.equals?(Dollar.new(5)) ).to be_true }
+    it { expect( @five == Dollar.new(5) ).to be_true }
   end
   context "compare with Dollar.new(6)" do
-    it { expect( @five.equals?(Dollar.new(6)) ).to be_false }
+    it { expect( @five == Dollar.new(6) ).to be_false }
   end
 end
