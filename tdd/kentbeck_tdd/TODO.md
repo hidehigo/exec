@@ -13,4 +13,5 @@
 * times の一般化
 * x Franc とDollar の比較
 * 通貨
+* testFrancMultiplication の削除
 
