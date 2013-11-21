@@ -5,6 +5,6 @@ class Franc < Money
     @currency = "CHF"
   end
   def times(multiplier)
-    return Franc.new( @amount * multiplier )
+    return Money.franc( @amount * multiplier )
   end
 end
