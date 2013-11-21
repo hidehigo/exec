@@ -19,11 +19,11 @@ describe Dollar, "#times" do
 end
 
 describe Dollar, "#equals" do
-  before { @five = Dollar.new(5) }
+  before { @five = Money.dollar(5) }
   context "compare with Dollar.new(5)" do
-    it { expect( @five == Dollar.new(5) ).to be_true }
+    it { expect( @five == Money.dollar(5) ).to be_true }
   end
   context "compare with Dollar.new(6)" do
-    it { expect( @five == Dollar.new(6) ).to be_false }
+    it { expect( @five == Money.dollar(6) ).to be_false }
   end
 end
