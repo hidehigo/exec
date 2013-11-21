@@ -1,9 +1,10 @@
 autoload :Dollar, 'dollar'
 autoload :Franc, 'franc'
 class Money
-  attr_reader :amount
+  attr_reader :amount, :currency
   def initialize(amount)
     @amount = amount
+    @currency
   end
   def ==(money)
     return @amount == money.amount && self.class == money.class
