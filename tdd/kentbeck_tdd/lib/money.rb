@@ -7,7 +7,7 @@ class Money
     @currency = currency
   end
   def ==(money)
-    return @amount == money.amount && self.class == money.class
+    return @amount == money.amount && @currency == money.currency
   end
   def self.dollar(amount)
     return Dollar.new(amount, "USD")
