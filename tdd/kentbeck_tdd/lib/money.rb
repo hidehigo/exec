@@ -9,6 +9,9 @@ class Money
   def ==(money)
     return @amount == money.amount && @currency == money.currency
   end
+  def times(multiplier)
+    return Money.new( @amount * multiplier, @currency )
+  end
   def self.dollar(amount)
     return Dollar.new(amount, "USD")
   end
