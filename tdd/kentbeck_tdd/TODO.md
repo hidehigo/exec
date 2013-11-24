@@ -8,10 +8,10 @@
 * nullとの等価性
 * オブジェクトとの等価性
 * x 5 CHF * 2 = 10 CHF
-* Dollar とFranc の重複
+* x Dollar とFranc の重複
 * x equals の一般化
 * x times の一般化
 * x Franc とDollar の比較
 * x 通貨
-* testFrancMultiplication の削除
+* x testFrancMultiplication の削除
 
