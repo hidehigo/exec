@@ -14,12 +14,6 @@ describe "test equality" do
   end
 end
 
-describe "test different class equality" do
-  context "compare with Money and Franc" do
-    it { expect( Money.new( 10, "CHF" ) ).to eq( Franc.new( 10, "CHF" ) ) }
-  end
-end
-
 describe "#times" do
   before { @five = Money.dollar(5) }
   describe "instantiation" do
