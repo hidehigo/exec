@@ -13,9 +13,9 @@ class Money
     return Money.new( @amount * multiplier, @currency )
   end
   def self.dollar(amount)
-    return Dollar.new(amount, "USD")
+    return Money.new(amount, "USD")
   end
   def self.franc(amount)
-    return Franc.new(amount, "CHF")
+    return Money.new(amount, "CHF")
   end
 end
