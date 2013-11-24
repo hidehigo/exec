@@ -1,5 +1,4 @@
-require 'dollar'
-require 'franc'
+require 'money'
 
 describe "test equality" do
   before { @five = Money.dollar(5) }

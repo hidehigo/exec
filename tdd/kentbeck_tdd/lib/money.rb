@@ -1,5 +1,3 @@
-autoload :Dollar, 'dollar'
-autoload :Franc, 'franc'
 class Money
   attr_reader :amount, :currency
   def initialize(amount, currency)
