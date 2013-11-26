@@ -38,3 +38,7 @@ describe "test currency" do
     it { expect( Money.franc(1).currency ).to eq("CHF")  }
   end
 end
+
+describe "#plus" do
+  it { expect( Money.dollar(5).plus( Money.dollar(5) ) ).to eq( Money.dollar(10) ) }
+end
