@@ -1,3 +1,6 @@
+require 'expression'
+require 'bank'
+include Expression
 class Money
   attr_reader :amount, :currency
   def initialize(amount, currency)
