@@ -41,4 +41,12 @@ end
 
 describe "#plus" do
   it { expect( Money.dollar(5).plus( Money.dollar(5) ) ).to eq( Money.dollar(10) ) }
+  context "sinple addition with bank" do
+    five = Money.dollar(5)
+    sum = five.plus(five)
+    bank = Bank.new
+    reduced = bank.reduce(sum, "USD")
+    it { expect(reduced).to eq(Money.dollar(10)) }
+  end
 end
+
