@@ -53,8 +53,7 @@ end
 describe Sum, "plus returns Sum" do 
   before {
     @five = Money.dollar(5)
-    result = @five.plus(@five)
-    @sum = result
+    @sum = @five.plus(@five)
   }
   context "check augend" do
     it { expect(@five).to eq(@sum.augend) }

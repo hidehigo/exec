@@ -1,6 +1,5 @@
-require 'expression'
 require 'bank'
-include Expression
+require 'sum'
 class Money
   attr_reader :amount, :currency
   def initialize(amount, currency)
@@ -14,7 +13,7 @@ class Money
     return Money.new( @amount * multiplier, @currency )
   end
   def plus(addend)
-    return Money.new( @amount + addend.amount, @currency )
+    return Sum.new( self, addend )
   end
   def self.dollar(amount)
     return Money.new(amount, "USD")
