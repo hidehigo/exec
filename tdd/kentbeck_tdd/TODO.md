@@ -1,6 +1,7 @@
 * レートが2:1の場合、$5 +10 CHF = $10
 * $5 + $5 = $10
 * $5 + $5 からMoneyの返却
+* Money.reduce(Money)
 * Moneyの丸め処理
 * hasCode()
 * nullとの等価性
