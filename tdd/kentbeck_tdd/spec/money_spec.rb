@@ -69,4 +69,9 @@ describe "#reduce" do
     result = bank.reduce(sum, "USD")
     it { expect(result).to eq(Money.dollar(7)) }
   end
+  context "reduce money" do
+    bank = Bank.new
+    result = bank.reduce(Money.dollar(1), "USD")
+    it { expect(Money.dollar(1)).to eq(result) }
+  end
 end
