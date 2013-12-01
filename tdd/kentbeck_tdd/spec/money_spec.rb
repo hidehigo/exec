@@ -1,6 +1,6 @@
 require 'money'
 
-describe "test equality" do
+describe Money, "test equality" do
   before { @five = Money.dollar(5) }
   context "compare with Dollar.new(5)" do
     it { expect( @five == Money.dollar(5) ).to be_true }
@@ -13,7 +13,7 @@ describe "test equality" do
   end
 end
 
-describe "#times" do
+describe Money, "#times" do
   before { @five = Money.dollar(5) }
   describe "instantiation" do
     it { expect(@five).not_to be_nil }
@@ -30,7 +30,7 @@ describe "#times" do
   end
 end
 
-describe "test currency" do
+describe Money, "test currency" do
   context "Dollar => 'USD'" do
     it { expect( Money.dollar(1).currency ).to eq("USD")  }
   end

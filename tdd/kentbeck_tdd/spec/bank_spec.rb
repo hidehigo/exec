@@ -2,7 +2,7 @@ require 'bank'
 require 'money'
 require 'sum'
 
-describe "#plus" do
+describe Bank, "#plus" do
   context "sinple addition with bank" do
     five = Money.dollar(5)
     sum = five.plus(five)
@@ -12,7 +12,7 @@ describe "#plus" do
   end
 end
 
-describe "#reduce" do
+describe Bank, "#reduce" do
   context "reduce sum" do
     sum = Sum.new(Money.dollar(3), Money.dollar(4))
     bank = Bank.new

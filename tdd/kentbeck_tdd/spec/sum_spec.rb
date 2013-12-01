@@ -1,7 +1,7 @@
 require 'sum'
 require 'money'
 
-describe Sum, "plus returns Sum" do
+describe Sum, "#plus returns Sum" do
   before {
     @five = Money.dollar(5)
     @sum = @five.plus(@five)
