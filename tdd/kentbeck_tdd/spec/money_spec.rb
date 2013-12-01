@@ -60,12 +60,13 @@ describe Sum, "plus returns Sum" do
   context "check addend" do
     it { expect(@five).to eq(@sum.addend) }
   end
-  describe "#reduce" do
-    context "reduce sum" do
-      sum = Sum.new(Money.dollar(3), Money.dollar(4))
-      bank = Bank.new
-      result = bank.reduce(sum, "USD")
-      it { expect(result).to eq(Money.dollar(7)) }
-    end
+end
+
+describe "#reduce" do
+  context "reduce sum" do
+    sum = Sum.new(Money.dollar(3), Money.dollar(4))
+    bank = Bank.new
+    result = bank.reduce(sum, "USD")
+    it { expect(result).to eq(Money.dollar(7)) }
   end
 end
