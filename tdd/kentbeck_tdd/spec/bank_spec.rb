@@ -26,3 +26,11 @@ describe Bank, "#reduce" do
   end
 end
 
+describe Bank, "#reduce" do
+  context "reduce money different currency" do
+    bank = Bank.new
+    bank.add_rate("CHF", "USD", 2)
+    result = bank.reduce(Money.franc(2), "USD")
+    it { expect(result).to eq(Money.dollar(1)) }
+  end
+end
