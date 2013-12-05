@@ -16,7 +16,8 @@ class Money
     return Sum.new( self, addend )
   end
   def reduce(to)
-    return self
+    @rate = @currency == "CHF" && to == "USD" ? 2 : 1
+    return Money.new(amount / @rate, to)
   end
   def self.dollar(amount)
     return Money.new(amount, "USD")
