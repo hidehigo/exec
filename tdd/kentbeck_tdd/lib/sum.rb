@@ -9,7 +9,7 @@ class Sum
   def plus
     return new Sum(self, addend)
   end
-  def reduce(to)
+  def reduce(bank, to)
     amount = @augend.amount + @addend.amount
     return Money.new(amount, to)
   end

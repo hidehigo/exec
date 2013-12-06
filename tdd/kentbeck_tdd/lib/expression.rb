@@ -1,4 +1,4 @@
 module Expression
-  def reduce(to)
+  def reduce(bank, to)
   end
 end
