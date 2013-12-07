@@ -39,4 +39,13 @@ describe Money, "test currency" do
   end
 end
 
-
+describe Money, "test mixed addition" do
+  context "$5 + 10 CHF = $10" do
+    five_bucks = Money.dollar(5)
+    ten_francs = Money.franc(10)
+    bank = Bank.new
+    bank.add_rate("CHF", "USD", 2)
+    result = bank.reduce(five_bucks.plus(ten_francs), "USD")
+    it { expect(result).to eq(Money.dollar(10)) }
+  end
+end
