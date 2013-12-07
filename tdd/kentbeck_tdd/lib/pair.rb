@@ -1,9 +1,11 @@
 class Pair
   attr_accessor :from, :to
-  #def initialize(from, to)
-  #end
+  def initialize(from, to)
+    @from = from
+    @to = to
+  end
   def eql?(obj)
-    return from == obj.from && to == obj.to
+    return @from == obj.from && @to == obj.to
   end
   def hash_code()
     return 0
