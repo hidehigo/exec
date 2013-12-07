@@ -7,7 +7,7 @@ class Pair
   def eql?(obj)
     return @from == obj.from && @to == obj.to
   end
-  def hash_code()
+  def hash()
     return 0
   end
 end
