@@ -10,6 +10,8 @@ class Bank
     @rates.store(Pair.new(from, to), rate)
   end
   def rate(from, to)
+    p Pair.new(from, to)
+    return @rates[Pair.new(from, to)]
     return ( from == "CHF" && to == "USD" ) ? 2 : 1
   end
 end
