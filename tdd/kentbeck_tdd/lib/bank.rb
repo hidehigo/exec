@@ -11,9 +11,6 @@ class Bank
   end
   def rate(from, to)
     return 1 if from == to
-    p Pair.new(from, to)
-    p @rates[Pair.new(from, to)]
     return @rates[Pair.new(from, to)]
-    return ( from == "CHF" && to == "USD" ) ? 2 : 1
   end
 end
