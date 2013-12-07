@@ -34,3 +34,10 @@ describe Bank, "#reduce" do
     it { expect(result).to eq(Money.dollar(1)) }
   end
 end
+
+describe Bank, "#rate" do
+  context "identity rate" do
+    bank = Bank.new
+    it { expect(bank.rate("USD","USD")).to eq(1) }
+  end
+end
