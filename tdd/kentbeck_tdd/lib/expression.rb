@@ -3,4 +3,6 @@ module Expression
   end
   def plus(addend)
   end
+  def times(multiplier)
+  end
 end
