@@ -24,10 +24,6 @@ describe Sum, "#plus" do
     result = bank.reduce(sum, "USD")
     it { expect(result).to eq(Money.dollar(15)) }
   end
-  context "plus same currency returns money" do
-    sum = Money.dollar(1).plus(Money.dollar(1))
-    it { expect(sum.class).to eq(Money) }
-  end
 end
 
 describe Sum, "#times" do
