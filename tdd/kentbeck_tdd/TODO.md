@@ -5,7 +5,7 @@
 * x 通貨交換によるMoneyの変換
 * x reduce(Bank, String)
 * x Sum.plus
-* Expression.times
+* x Expression.times
 * Moneyの丸め処理
 * hasCode()
 * nullとの等価性
