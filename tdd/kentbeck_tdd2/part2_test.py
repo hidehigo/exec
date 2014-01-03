@@ -6,13 +6,12 @@ test.run()
 print test.wasRun
 
 class TestCaseTest(TestCase):
-  def testRunning(self):
+  def setUp(self):
     test = WasRun("testMethod")
-    assert(not test.wasRun)
+  def testRunning(self):
     test.run()
     assert(test.wasRun)
   def testSetUp(self):
-    test = WasRun("testMethod")
     test.run()
     assert(test.wasSetUp)
 TestCaseTest("testRunning").run()
