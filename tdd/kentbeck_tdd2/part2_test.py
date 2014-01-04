@@ -22,7 +22,7 @@ class TestCaseTest(TestCase):
     result = TestResult()
     result.testStarted()
     result.testFailed()
-    assert("1 run, 1 failed" == result.sammary())
+    assert("1 run, 1 failed" == result.summary())
 
 TestCaseTest("testTemplateMethod").testResult()
 #TestCaseTest("testBrokenMethod").testFailedResult()
