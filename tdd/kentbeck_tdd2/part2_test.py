@@ -15,6 +15,6 @@ class TestCaseTest(TestCase):
     result = test.run()
     assert("1 run, 0 failed" == result.summary())
 
-TestCaseTest("testTemplateMethod").run().testResult()
+TestCaseTest("testTemplateMethod").testResult()
 
 
