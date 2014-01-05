@@ -24,8 +24,9 @@ class TestCaseTest(TestCase):
     result.testFailed()
     assert("1 run, 1 failed" == result.summary())
 
-TestCaseTest("testTemplateMethod").testResult()
-TestCaseTest("testBrokenMethod").testFailedResult()
-TestCaseTest("hoge").testFailedResultFormatting()
+TestCaseTest("testTemplateMethod").run().summary()
+TestCaseTest("testResult").run().summary()
+TestCaseTest("testFailedResult").run().summary()
+TestCaseTest("testFailedResult").run().summary()
 
 
