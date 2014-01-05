@@ -7,4 +7,5 @@
 * x WasRunでログ文字列を使用する
 * x 失敗したテストを報告する
 * setUpのエラーをとらえて報告する
+* TestCaseクラスからTestSuiteを作成する
 
