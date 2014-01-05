@@ -1,4 +1,4 @@
-from part2 import WasRun, TestCase, TestResult
+from part2 import WasRun, TestCase, TestSuite, TestResult
 
 test = WasRun("testMethod")
 print test.wasRun
