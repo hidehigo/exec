@@ -23,10 +23,16 @@ class TestCaseTest(TestCase):
     result.testStarted()
     result.testFailed()
     assert("1 run, 1 failed" == result.summary())
+  def testSuite(self):
+    suite = TestSuite()
+    suite.add(WasRun("testMethod"))
+    suite.add(WasRun("testBrokenMethod"))
+    result = suite.run()
+    assert("2 run, 1 failed" == result.summary())
 
 TestCaseTest("testTemplateMethod").run().summary()
 TestCaseTest("testResult").run().summary()
+TestCaseTest("testFailedResultFormatting").run().summary()
 TestCaseTest("testFailedResult").run().summary()
-TestCaseTest("testFailedResult").run().summary()
-
+TestCaseTest("hoge").testSuite()
 
