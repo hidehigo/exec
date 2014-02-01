@@ -32,8 +32,32 @@ describe Registers, "#transact" do
     regi.transact
     it { expect(regi.waiting).to eq([7,2,6,4,7]) }
   end
+  context "transact twice when [9,9,9,9,9]" do
+    regi = Registers.new()
+    5.times { regi.visit(9) }
+    regi.transact
+    regi.transact
+    it { expect(regi.waiting).to eq([5,0,3,0,5]) }
+  end
 end
 
-
+describe Registers, "#visit_x and #transact" do
+  context "visit craimer after 9*5" do
+    regi = Registers.new()
+    5.times { regi.visit(9) }
+    regi.visit_x()
+    regi.transact
+    it { expect(regi.waiting).to eq([8,2,6,4,7]) }
+  end
+  context "transact twice after visit craimer after (9*5 and transact)" do
+    regi = Registers.new()
+    5.times { regi.visit(9) }
+    regi.transact
+    regi.visit_x()
+    regi.transact
+    regi.transact
+    it { expect(regi.waiting).to eq([3,1,0,0,3]) }
+  end
+end
 
 

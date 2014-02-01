@@ -10,9 +10,14 @@ class Registers
     min_i = @waiting.index(@waiting.sort.first)
     @registers[min_i] += Array.new(num,1) 
   end
+  def visit_x()
+    @waiting = self.waiting()
+    min_i = @waiting.index(@waiting.sort.first)
+    @registers[min_i] += Array.new(1,'x') 
+  end
   def transact
     @registers.each_index do |idx|
-      @transaction[idx].times { @registers[idx].shift }
+      @transaction[idx].times { @registers[idx].shift if @registers[idx].first != 'x'}
     end
   end
   def waiting
