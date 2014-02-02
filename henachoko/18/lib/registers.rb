@@ -10,7 +10,7 @@ class Registers
     min_i = @waiting.index(@waiting.sort.first)
     @registers[min_i] += Array.new(num,1) 
   end
-  def visit_x()
+  def visit_x
     @waiting = self.waiting()
     min_i = @waiting.index(@waiting.sort.first)
     @registers[min_i] += Array.new(1,'x') 

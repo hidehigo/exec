@@ -60,4 +60,25 @@ describe Registers, "#visit_x and #transact" do
   end
 end
 
+describe Registers, "prepared tests" do
+  IO.foreach('spec/case.txt') do |l|
+    (input, expects) = l.split(/\s+/)
+    expects = expects.split(/,/).map{|s|s.to_i}.to_a 
+    #p [input, expects]
+    context "case: #{input}" do
+      regi = Registers.new()
+      input.split(//).each do |c|
+        case c 
+        when "x" then
+          regi.visit_x
+        when "." then
+          regi.transact
+        else
+          regi.visit(c.to_i)
+        end
+      end
+      it { expect(regi.waiting).to eq(expects) }
+    end
+  end
+end
 
