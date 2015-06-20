@@ -11,7 +11,14 @@
 start = Time.now
 @cache = Hash.new
 @found = Hash.new 
-rest=[1,1,1,1,1,1,1,1,1,1,1,2,2,3,3,3,3,3,3,3,3,3,3,3,3,3,5,5,5,5,5,5,5,5,5,5,5]
+
+# 入力を受ける
+n = STDIN.gets.to_i
+num = STDIN.gets.to_i
+rest = Array.new
+num.times{ rest.push(STDIN.gets.to_i) }
+
+#rest=[1,1,1,1,1,1,1,1,1,1,1,2,2,3,3,3,3,3,3,3,3,3,3,3,3,3,5,5,5,5,5,5,5,5,5,5,5]
 rsum = rest.inject(&:+)
 rest.sort!.reverse!
 
@@ -39,7 +46,9 @@ def f(n, rest, rsum, used=[])
 	return
 end
 
-f(10, rest, rsum)
+f(n, rest, rsum)
+#p @cache
+#p @found
 p @found.size 
 print "took " + ((Time.now - start) * 1000).round.to_s + "ms.\n"
 
