@@ -10,7 +10,7 @@
 
 start = Time.now
 @cache = Hash.new
-@found = Hash.new 
+@found = Array.new 
 
 # 入力を受ける
 n = STDIN.gets.to_i
@@ -31,14 +31,15 @@ def f(n, rest, rsum, used=[])
 
 	return if n > rsum   # 残り全部足しても足りない
 	return if n < 0
-	if n == rsum         # 残り全部足してちょうど
-		@found[ [used,rest].flatten ] = 1
-	  return
-	end
 	if ( n == 0 ) then   # 今のでちょうど
-		@found[ used ] = 1
+		@found << used
 		return
 	end
+	return if used.length >= 3 # 3つで打ち切り
+	#if n == rsum         # 残り全部足してちょうど
+	#	@found[ [used,rest].flatten ] = 1
+	#  return
+	#end
 
 	f(n, rest[1 .. -1], rsum - rest[0], used)
 	f(n - rest[0], rest[1 .. -1], rsum - rest[0], [used, rest[0]].flatten)
@@ -49,6 +50,7 @@ end
 f(n, rest, rsum)
 #p @cache
 #p @found
-p @found.size 
-print "took " + ((Time.now - start) * 1000).round.to_s + "ms.\n"
+#p @found.size 
+p @found.inject(0){|cnt,a| a.size==3 ? cnt + 1 : cnt}
+#print "took " + ((Time.now - start) * 1000).round.to_s + "ms.\n"
 
