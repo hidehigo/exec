@@ -9,8 +9,8 @@
 #  つなぎ合わせたときの長さLと、N個(1≦N≦5000)の棒の長さが標準入力から与えられるとき、N個の棒の中から3つをつなぎ合わせて長さがLになる組み合わせの総数を求めるプログラムを書いてください。ただし、個々の棒の長さや、つなぎ合わせた長さ(L)は正の整数で、32bit整数で十分扱える範囲です。また、棒の長さはすべて異なるものとします。
 
 start = Time.now
-@cache = Hash.new
-@found = Hash.new 
+require 'set'
+@found = Set.new 
 
 # 入力を受ける
 s = STDIN.gets.to_i
@@ -34,7 +34,7 @@ while ( f[l] * 3 >= s ) do
     ss = f[m] + f[n]
 		if ( ss >= s2 ) then
 			if ( ss == s2 ) then
-			  @found[ [f[m], f[n]] ] = 1
+			  @found << [f[m], f[n]]
 			end
 			m += 1
 		else
@@ -43,7 +43,7 @@ while ( f[l] * 3 >= s ) do
 	end
   l += 1
 end
-p @found.keys.length
+p @found.size
 
 print "took " + ((Time.now - start) * 1000).round.to_s + "ms.\n"
 
