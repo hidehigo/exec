@@ -10,7 +10,7 @@
 
 start = Time.now
 require 'set'
-@found = Set.new 
+found = 0
 
 # 入力を受ける
 s = STDIN.gets.to_i
@@ -36,7 +36,7 @@ while ( (fl = f[l]) * 3 >= s ) do
     ss = fm + fn
 		if ( ss >= s2 ) then
 	    if ( ss == s2 ) then
-			  @found << [fm, fn]
+			  found += 1
 			end
 			m += 1
 		  fm = f[m]
@@ -47,7 +47,7 @@ while ( (fl = f[l]) * 3 >= s ) do
 	end
   l += 1
 end
-p @found.size
+p found
 
 print "took " + ((Time.now - start) * 1000).round.to_s + "ms.\n"
 
