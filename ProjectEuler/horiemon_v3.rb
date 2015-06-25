@@ -33,19 +33,19 @@ while ( (fl = f[l]) * 3 >= s ) do
 	fn = f[n]
 	while ( m < n ) do
 		#p [m,n]
-    ss = fm + fn
+		ss = fm + fn
 		if ( ss >= s2 ) then
-	    if ( ss == s2 ) then
-			  found += 1
+			if ( ss == s2 ) then
+				found += 1
 			end
 			m += 1
 		  fm = f[m]
 		else
 			n -= 1
-		  fn = f[n]
+			fn = f[n]
 		end
 	end
-  l += 1
+	l += 1
 end
 p found
 
