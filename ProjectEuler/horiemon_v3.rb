@@ -29,18 +29,20 @@ while ( (fl = f[l]) * 3 >= s ) do
 	s2 = s - fl
 	m = l + 1
 	n = num - 1
+	fm = f[m]
+	fn = f[n]
 	while ( m < n ) do
 		#p [m,n]
-		fm = f[m]
-		fn = f[n]
     ss = fm + fn
 		if ( ss >= s2 ) then
 	    if ( ss == s2 ) then
 			  @found << [fm, fn]
 			end
 			m += 1
+		  fm = f[m]
 		else
 			n -= 1
+		  fn = f[n]
 		end
 	end
   l += 1
