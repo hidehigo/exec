@@ -5,7 +5,7 @@ GEM
       timers (~> 1.1.0)
     coderay (1.0.9)
     diff-lcs (1.2.4)
-    ffi (1.9.2)
+    ffi (1.11.1)
     formatador (0.2.4)
     guard (2.2.2)
       formatador (>= 0.2.4)
